@@ -113,7 +113,9 @@ num_classes = 10      # MNIST는 0~9까지 10개의 클래스
 model = MLP(input_size, hidden_size, num_classes)
 
 # GPU 사용 가능 시 디바이스 설정
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+# MPS (Metal Performance Shaders)는 Apple Silicon Mac에서 GPU 가속을 제공합니다.
+# 이 코드는 MPS를 사용할 수 있다면 'mps' 디바이스를, 그렇지 않다면 'cpu' 디바이스를 선택합니다.
+device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
 model.to(device)
 
 print(f"모델 구조:\n{model}")

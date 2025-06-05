@@ -147,6 +147,12 @@ class LogisticRegression(nn.Module):
 input_size = X_train_tensor.shape[1]
 model = LogisticRegression(input_size)
 
+# GPU 사용 가능 시 디바이스 설정
+# MPS (Metal Performance Shaders)는 Apple Silicon Mac에서 GPU 가속을 제공합니다.
+# 이 코드는 MPS를 사용할 수 있다면 'mps' 디바이스를, 그렇지 않다면 'cpu' 디바이스를 선택합니다.
+device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
+model.to(device)
+
 print(f"모델 구조:")
 print(model)
 print(f"\n모델 파라미터:")
