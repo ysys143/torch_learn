@@ -1,0 +1,37 @@
+# vulnerable_requirements.txt
+# 의도적으로 취약한 의존성들 (보안 스캐너 테스트용)
+
+# 오래되고 취약한 버전들
+django==2.0.0  # 알려진 보안 취약점
+flask==0.12.0  # 오래된 버전
+requests==2.6.0  # 보안 문제 있는 오래된 버전
+pillow==5.0.0  # 이미지 처리 취약점
+pyyaml==3.12  # 임의 코드 실행 취약점
+jinja2==2.8.0  # 템플릿 인젝션 취약점
+werkzeug==0.14.0  # 디버거 관련 보안 문제
+
+# 더 심각한 취약점들
+paramiko==1.15.0  # SSH 관련 취약점
+cryptography==1.5.0  # 암호화 라이브러리 취약점
+lxml==3.6.0  # XML 파싱 취약점
+beautifulsoup4==4.4.0  # HTML 파싱 문제
+urllib3==1.21.0  # HTTP 관련 보안 문제
+
+# PyTorch 관련 (오래된 버전)
+torch==1.0.0  # 매우 오래된 버전
+torchvision==0.2.0  # 호환성 문제
+numpy==1.14.0  # 수치 계산 관련 문제
+
+# 개발 도구들 (취약한 버전)
+setuptools==20.0.0  # 패키지 설치 관련 취약점
+pip==9.0.0  # 매우 오래된 pip
+wheel==0.24.0  # 빌드 도구 취약점
+
+# 기타 문제가 있는 패키지들
+bleach==2.0.0  # XSS 방지 라이브러리의 취약한 버전
+markdown==2.6.0  # 마크다운 파싱 문제
+mistune==0.7.0  # 마크다운 렌더러 취약점
+
+# 정확하지 않은 패키지명들 (설치 오류 유발)
+non-existent-package==1.0.0
+another-fake-package>=2.0.0 
