@@ -27,7 +27,7 @@
         -   **장치 할당 (`.to(device)`)**: 모델과 텐서를 CPU 또는 GPU (예: CUDA, MPS)로 옮기는 방법.
         -   **가중치 초기화 (Weight Initialization)**: 모델 성능에 영향을 미치는 파라미터 초기화 방법 (`torch.nn.init`).
 
-1.  **PyTorch 핵심 구현 패턴 (Key Implementation Patterns)**
+1.  **PyTorch 핵심 구현 패턴 (Key Implementation Patterns)** ✅
     -   **내용**: 실제 모델 구현에 필수적인 PyTorch의 주요 클래스 상속 방식, 데이터 처리, 모델 상태 관리 및 훈련/평가 제어 심층 학습. "반복 훈련"을 통해 체득하는 것을 목표로 합니다.
     -   **주요 학습**:
         -   `torch.nn.Module` 상속 활용: `__init__`에서의 레이어 선언, `forward` 메소드 설계 및 데이터 흐름 구성 심층 분석.
@@ -36,6 +36,10 @@
         -   모델 상태 저장 및 로드: `model.state_dict()`를 이용한 방식과 전체 모델(`torch.save(model, PATH)`)을 저장하는 방식의 차이점, 장단점, 사용 시나리오 명확히 구분.
         -   훈련 루프 상세 구성: 데이터 로딩, 모델 예측, 손실 계산, 역전파, 옵티마이저 스텝, 평가 지표 계산 등 완전한 훈련 사이클 구현.
         -   Hooks 활용 (선택 사항): `register_forward_hook`, `register_backward_hook` 등을 사용한 중간 피처/그래디언트 추출 및 분석 기초.
+    -   **구현 파일**: 
+        -   `learn/01_pytorch_implementation_patterns.py` - 실행 가능한 구현 코드
+        -   `explain/01_pytorch_implementation_patterns_explanation.md` - 상세한 이론적 설명
+        -   `notebook/01_pytorch_implementation_patterns.ipynb` - 인터랙티브 노트북
 
 ### 1. 기초 다지기
 
