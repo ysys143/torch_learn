@@ -1,0 +1,49 @@
+# Dockerfile.vulnerable
+# 의도적으로 취약한 Docker 설정 (보안 스캐너 테스트용)
+
+# 오래된 베이스 이미지 (보안 취약점 포함)
+FROM ubuntu:16.04
+
+# root 사용자로 실행 (보안 위험)
+USER root
+
+# 패키지 업데이트 없이 설치 (취약한 패키지들)
+RUN apt-get install -y \
+    python3 \
+    python3-pip \
+    curl \
+    wget \
+    sudo
+
+# 불필요한 권한 부여
+RUN chmod 777 /tmp
+RUN chmod 777 /var/log
+
+# 하드코딩된 시크릿들
+ENV DATABASE_PASSWORD=admin123
+ENV API_KEY=sk-1234567890abcdef
+ENV SECRET_TOKEN=super-secret-token
+
+# 취약한 파이썬 패키지 설치
+COPY vulnerable_requirements.txt .
+RUN pip3 install -r vulnerable_requirements.txt
+
+# 소스 코드를 root 권한으로 복사
+COPY . /app
+WORKDIR /app
+
+# 모든 파일에 실행 권한 부여 (위험)
+RUN chmod +x -R /app
+
+# 불필요한 포트들 노출
+EXPOSE 22 80 443 3306 5432 6379
+
+# 디버그 모드로 실행
+ENV DEBUG=True
+ENV FLASK_ENV=development
+
+# 로그에 민감한 정보 출력
+RUN echo "Database password: $DATABASE_PASSWORD" > /var/log/secrets.log
+
+# root로 애플리케이션 실행 (매우 위험)
+CMD ["python3", "learn/critical_bugs.py"] 

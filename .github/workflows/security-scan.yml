@@ -1,0 +1,47 @@
+name: Security Vulnerability Scan
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit safety pylint
+        if [ -f vulnerable_requirements.txt ]; then pip install -r vulnerable_requirements.txt || true; fi
+    
+    - name: Run Bandit Security Scan
+      run: |
+        bandit -r learn/ -f json -o bandit-report.json || true
+        bandit -r learn/ || true
+    
+    - name: Run Safety Check
+      run: |
+        safety check --json || true
+        safety check || true
+    
+    - name: Run PyLint
+      run: |
+        pylint learn/*.py || true
+    
+    - name: Check for secrets
+      run: |
+        echo "Scanning for potential secrets..."
+        grep -r "AKIA" . || true
+        grep -r "ghp_" . || true
+        grep -r "sk-" . || true
+        grep -r "password" . || true 
