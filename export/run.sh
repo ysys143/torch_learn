@@ -9,4 +9,4 @@ echo ""
 
 # PyTorch 메인 프로그램 실행
 echo "PyTorch 프로그램을 실행합니다..."
-uv run python main.py 
+uv run python main.py
